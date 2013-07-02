@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.azureiken.bitbeams"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.azureiken.bitbeams.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.AddFolderActivity"
+            android:label="@string/title_activity_add_folder" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.BoxLoginActivity"
+            android:label="@string/title_activity_box_login" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.DocumentListActivity"
+            android:label="@string/title_activity_document_list" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.AudioListActivity"
+            android:label="@string/title_activity_audio_list" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.PhotoListActivity"
+            android:label="@string/title_activity_photo_list" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.CloudFoldersActivity"
+            android:label="@string/title_activity_box_floders" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.WorkingFolderActivity"
+            android:label="@string/title_activity_working_folder" >
+        </activity>
+        <activity
+            android:name="com.azureiken.bitbeams.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
+
+        
+
+        <activity
+            android:name="com.azureiken.bitbeams.FolderAccessActivity"
+            android:label="@string/title_activity_folder_access" >
+        </activity>
+    </application>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>
