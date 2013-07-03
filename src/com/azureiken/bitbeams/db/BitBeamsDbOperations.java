@@ -28,12 +28,11 @@ public class BitBeamsDbOperations {
 		newRowId = db.insert(BitBeamsEntry.TABLE_NAME,null,values);
 		System.out.println("Row id is :"+ newRowId);
 	}
-	public ArrayList<String> getFolder(){
-		String[] projection = {BitBeamsEntry._ID, BitBeamsEntry.COLUMN_NAME_FILE_NAME, 
-				BitBeamsEntry.COLUMN_NAME_FILE_TYPE, BitBeamsEntry.COLUMN_NAME_FILE_PATH};
-		String shortOrder = BitBeamsEntry._ID+" ASC";
-//		Cursor c = db.query(BitBeamsEntry.TABLE_NAME, projection, null, null, null, null, shortOrder);
-		Cursor c = db.rawQuery("Select * from "+BitBeamsEntry.TABLE_NAME+";",null);
+	public ArrayList<String> getFolder(String path){
+
+		String query = "Select * from "+BitBeamsEntry.TABLE_NAME+" where "+BitBeamsEntry.COLUMN_NAME_FILE_PATH+"='"+path+"';";
+		System.out.println("query is "+query);
+		Cursor c = db.rawQuery(query,null);
 		ArrayList<String> folders = new ArrayList<String>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
