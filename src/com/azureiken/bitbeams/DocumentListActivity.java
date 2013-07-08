@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
+
 import android.widget.ListView;
 
 import com.azureiken.bitbeams.adapter.FolderListAdapter;
@@ -23,7 +23,7 @@ public class DocumentListActivity extends Activity {
 	private Bundle b;
 	private ArrayList<String> values;
 	private FolderListAdapter adapter;
-	private BitBeamsDbOperations dBOperations;
+	private BitBeamsDbOperations dbOperations;
 	private ListView list;
 
 	@Override
@@ -33,19 +33,17 @@ public class DocumentListActivity extends Activity {
 		list = (ListView)findViewById(R.id.documents_listview);
 		b = getIntent().getExtras();
 		path = b.getString("path");
-		dBOperations = new BitBeamsDbOperations(getBaseContext());
-		values = dBOperations.getFolder(path+"\\");
+		dbOperations = new BitBeamsDbOperations(getBaseContext());
+		values = dbOperations.getFolder(path);
 		adapter = new FolderListAdapter(this, values);
 		list.setAdapter(adapter);	
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
-				
 				b = getIntent().getExtras();
 				path = b.getString("path");
-				b.putString("path",path+"\\word");
+				b.putString("path",path+"\\"+values.get((int)id));
 				finish();
 				startActivity(getIntent().putExtras(b));
 			
@@ -70,7 +68,9 @@ public class DocumentListActivity extends Activity {
 			case R.id.addFolder:
 				DialogFragment newFragment = AddFolderDialogFragment
 						.newInstance(path);
+				
 				newFragment.show(getFragmentManager(), "add_folder");
+				
 				break;
 			case R.id.settings:
 				return true;
@@ -84,16 +84,5 @@ public class DocumentListActivity extends Activity {
 
 	}
 
-	// @Override
-	// public void onDialogPositiveClick(DialogFragment dialog) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void onDialogNegativeClick(DialogFragment dialog) {
-	// // TODO Auto-generated method stub
-	//
-	// }
 
 }

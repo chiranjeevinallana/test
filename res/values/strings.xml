@@ -8,7 +8,7 @@
     <string name="title_activity_box_login">BoxLogin</string>
     <string name="title_activity_document_list">Documents</string>
     <string name="title_activity_audio_list">Songs/Voice memos</string>
-    <string name="title_activity_photo_list">Phots</string>
+    <string name="title_activity_photo_list">Photos</string>
     <string name="title_activity_box_floders">Cloud area</string>
     <string name="title_activity_working_folder">Working area</string>
     <string name="title_activity_search">Search</string>

@@ -1,7 +1,7 @@
 package com.azureiken.bitbeams.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.azureiken.bitbeams.R;
 
-public class FolderListAdapter extends BaseAdapter{
+public class FolderListAdapter extends BaseAdapter {
 	private Activity activity;
 	
 	private ArrayList<String> values;
@@ -58,27 +60,31 @@ public class FolderListAdapter extends BaseAdapter{
 		title.setText(s);
 		
 		if (s.equals("Documents")) {
-			imageView.setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.folder_documents);
 			title.setText(R.string.title_activity_document_list);
 		} else if (s.equals("Cloud base")) {
-			imageView.setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.cloud);
 			title.setText(R.string.title_activity_box_floders);
 		} else if (s.equals("Work area")) {
-			imageView.setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.works_in_progress);
 			title.setText(R.string.title_activity_working_folder);
 		} else if (s.equals("Photos")){
-			imageView.setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.camera);
 			title.setText(R.string.title_activity_photo_list);
-		} else {
-			imageView.setImageResource(R.drawable.ic_launcher);
+		} else if(s.equals("Songs/Voice memos")){
+			imageView.setImageResource(R.drawable.music);
+			title.setText(R.string.title_activity_audio_list);
+		}
+		else {
+			imageView.setImageResource(R.drawable.folder);
 		}
 		return vi;
 	}
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return position;
 	}
-	
 
+	
 }

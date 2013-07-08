@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.azureiken.bitbeams.dao.ReadResources" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.azureiken.bitbeams.AddFolderActivity"
             android:label="@string/title_activity_add_folder" >
@@ -54,13 +59,12 @@
             android:name="com.azureiken.bitbeams.SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
-
-        
-
         <activity
             android:name="com.azureiken.bitbeams.FolderAccessActivity"
             android:label="@string/title_activity_folder_access" >
         </activity>
     </application>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>
