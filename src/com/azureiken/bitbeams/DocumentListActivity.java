@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.azureiken.bitbeams.adapter.FolderListAdapter;
 import com.azureiken.bitbeams.db.BitBeamsDbOperations;
@@ -25,7 +25,7 @@ public class DocumentListActivity extends Activity {
 	private FolderListAdapter adapter;
 	private BitBeamsDbOperations dbOperations;
 	private ListView list;
-
+	private TextView documents_path;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +34,17 @@ public class DocumentListActivity extends Activity {
 		b = getIntent().getExtras();
 		path = b.getString("path");
 		dbOperations = new BitBeamsDbOperations(getBaseContext());
+		
+	}
+	
+	
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		documents_path = (TextView) findViewById(R.id.documents_path);
+		documents_path.setText(path);
 		values = dbOperations.getFolder(path);
 		adapter = new FolderListAdapter(this, values);
 		list.setAdapter(adapter);	
@@ -42,14 +53,21 @@ public class DocumentListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				b = getIntent().getExtras();
-				path = b.getString("path");
-				b.putString("path",path+"\\"+values.get((int)id));
-				finish();
-				startActivity(getIntent().putExtras(b));
+				path = path+"\\"+values.get((int)id);
+				documents_path.setText(path);
+				
+//				b.putString("path",path+"\\"+values.get((int)id));
+				values = dbOperations.getFolder(path);
+				adapter.setValues(values);
+				adapter.notifyDataSetChanged();
+//				finish();
+//				startActivity(getIntent().putExtras(b));
 			
 			}
 		});
 	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

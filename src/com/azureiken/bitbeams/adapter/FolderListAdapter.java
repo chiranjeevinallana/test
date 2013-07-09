@@ -29,6 +29,10 @@ public class FolderListAdapter extends BaseAdapter {
 		System.out.println("FolderListAdapter created..");
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+	
+	public void setValues(ArrayList<String> values){
+		this.values = values;
+	}
 
 	@Override
 	public int getCount() {

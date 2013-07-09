@@ -3,9 +3,6 @@ package com.azureiken.bitbeams;
 
 import java.util.ArrayList;
 
-import com.azureiken.bitbeams.dao.BitBeamsFile;
-import com.azureiken.bitbeams.db.BitBeamsDbOperations;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,12 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.azureiken.bitbeams.dao.BitBeamsFile;
+import com.azureiken.bitbeams.db.BitBeamsDbOperations;
+
 public class AddFolderDialogFragment extends DialogFragment {
 	private static String path;
 	private final String FILE_TYPE = "FOLDER";
 	private BitBeamsDbOperations dbOperations;
 	private ArrayList<String> fileInfo;
 	private BitBeamsFile dBFile;
+	private Bundle b;
 
 	public static AddFolderDialogFragment newInstance(String path1) {
 		AddFolderDialogFragment frag = new AddFolderDialogFragment();
@@ -57,9 +58,11 @@ public class AddFolderDialogFragment extends DialogFragment {
 								fileInfo.add(dBFile.getFileName());
 								fileInfo.add(dBFile.getFileType());
 								fileInfo.add(dBFile.getFilePath());
+								
+								path = dBFile.getFilePath()+"\\"+dBFile.getFileName();
 
 								dbOperations.InsertData(fileInfo);
-								
+								dbOperations.closeConnection();
 								
 							}
 						})
@@ -78,6 +81,9 @@ public class AddFolderDialogFragment extends DialogFragment {
 	public void onDismiss(DialogInterface dialog) {
 		// TODO Auto-generated method stub
 		super.onDismiss(dialog);
+		b = new Bundle();
+		b.putString("path", path);
+		getActivity().getIntent().putExtras(b);
 		startActivity(getActivity().getIntent());
 	}
 	

@@ -10,13 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-
 import com.azureiken.bitbeams.R;
 import com.azureiken.bitbeams.db.BitBeamsDbOperations;
 
 public class ReadResources extends Activity {
 
-	private boolean mboolean = false;
 	private BitBeamsDbOperations dbOperations;
 	private ArrayList<String> values;
 	private ArrayList<String> keys;
@@ -26,17 +24,18 @@ public class ReadResources extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+		
 		dbOperations = new BitBeamsDbOperations(getBaseContext());
-		boolean mboolean = false;
-		mboolean = settings.getBoolean("FIRST_RUN", false);
-		if (!mboolean) {
+		
 			// do the thing for the first time
 			System.out.println("First Run");
 			try {
 				InputStream properties = getResources().openRawResource(
 						R.raw.development);
+				
 				Properties props = new OrderedProperties();
+				
+				
 				props.load(properties);
 
 				String keyValue = null;
@@ -74,10 +73,7 @@ public class ReadResources extends Activity {
 				e.printStackTrace();
 			}
 
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putBoolean("FIRST_RUN", true);
-			editor.commit();
-		}
+			
 		dbOperations.closeConnection();
 		
 		setResult(RESULT_OK);
