@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <application
@@ -63,6 +63,7 @@
             android:name="com.azureiken.bitbeams.FolderAccessActivity"
             android:label="@string/title_activity_folder_access" >
         </activity>
+      
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

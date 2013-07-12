@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,48 +27,48 @@ public class DocumentListActivity extends Activity {
 	private BitBeamsDbOperations dbOperations;
 	private ListView list;
 	private TextView documents_path;
+	private Intent intent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_document_list);
-		list = (ListView)findViewById(R.id.documents_listview);
+		list = (ListView) findViewById(R.id.documents_listview);
 		b = getIntent().getExtras();
+
 		path = b.getString("path");
 		dbOperations = new BitBeamsDbOperations(getBaseContext());
-		
+
 	}
-	
-	
 
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+	
 		documents_path = (TextView) findViewById(R.id.documents_path);
 		documents_path.setText(path);
+
 		values = dbOperations.getFolder(path);
 		adapter = new FolderListAdapter(this, values);
-		list.setAdapter(adapter);	
+		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				b = getIntent().getExtras();
-				path = path+"\\"+values.get((int)id);
+				path = path + "\\" + values.get((int) id);
 				documents_path.setText(path);
-				
-//				b.putString("path",path+"\\"+values.get((int)id));
+
+				// b.putString("path",path+"\\"+values.get((int)id));
 				values = dbOperations.getFolder(path);
 				adapter.setValues(values);
 				adapter.notifyDataSetChanged();
-//				finish();
-//				startActivity(getIntent().putExtras(b));
-			
+				// finish();
+				// startActivity(getIntent().putExtras(b));
+
 			}
 		});
 	}
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,11 +87,16 @@ public class DocumentListActivity extends Activity {
 			case R.id.addFolder:
 				DialogFragment newFragment = AddFolderDialogFragment
 						.newInstance(path);
-				
+
 				newFragment.show(getFragmentManager(), "add_folder");
-				
+
 				break;
 			case R.id.settings:
+				return true;
+			case R.id.back:
+				goBack();
+				return true;
+			default:
 				return true;
 			}
 
@@ -102,5 +108,28 @@ public class DocumentListActivity extends Activity {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		String[] backPath = path.split("//");
+		for (String pathList : backPath) {
+			System.out.println(pathList);
+		}
+	}
+	public void goBack(){
+		if(!path.equals("Documents")){
+			path = path.substring(0,path.lastIndexOf("\\"));
+			values = dbOperations.getFolder(path);
+			adapter.setValues(values);
+			adapter.notifyDataSetChanged();
+		}
+			
+		else{
+			intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+		}
+		
+	}
 
 }

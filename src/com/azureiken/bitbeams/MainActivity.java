@@ -19,7 +19,7 @@ import com.azureiken.bitbeams.dao.ReadResources;
 import com.azureiken.bitbeams.db.BitBeamsDbOperations;
 
 public class MainActivity extends Activity {
-	private static final String prefix = "home";
+
 	public static final int RESOURCE_REQ = 1;
 	private static Intent intent;
 	private static Class myClass;
@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 		boolean mboolean = false;
 		mboolean = settings.getBoolean("FIRST_RUN", false);
@@ -50,19 +49,19 @@ public class MainActivity extends Activity {
 		}
 		setContentView(R.layout.activity_main);
 		list = (ListView) findViewById(R.id.main_listview);
-		dbOperations = new BitBeamsDbOperations(getBaseContext());
-		
+
 	}
-	
-	
 
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		// mSearchView = (SearchView)findViewById(R.id.search);
+		dbOperations = new BitBeamsDbOperations(getBaseContext());
 		values = dbOperations.getFolder(PATH);
 		adapter = new FolderListAdapter(this, values);
 		list.setAdapter(adapter);
+
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -105,9 +104,9 @@ public class MainActivity extends Activity {
 
 		});
 
+		dbOperations.closeConnection();
+
 	}
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,6 +130,8 @@ public class MainActivity extends Activity {
 
 			case R.id.settings:
 				return true;
+			default:
+				return true;
 
 			}
 			intent = new Intent(MainActivity.this, myClass);
@@ -147,8 +148,9 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		values = dbOperations.getFolder(PATH);
+		adapter.setValues(values);
 		adapter.notifyDataSetChanged();
-//		intent = new Intent(this,MainActivity.class);
-//		startActivity(intent);
+
 	}
+
 }

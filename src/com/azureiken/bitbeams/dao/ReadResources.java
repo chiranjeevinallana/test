@@ -18,8 +18,6 @@ public class ReadResources extends Activity {
 	private BitBeamsDbOperations dbOperations;
 	private ArrayList<String> values;
 	private ArrayList<String> keys;
-	private Intent intent;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

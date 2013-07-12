@@ -9,8 +9,22 @@
     tools:context=".AddFolderActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Folder" />
+
+    <requestFocus
+        android:layout_alignTop="@+id/textView1"
+        android:layout_centerHorizontal="true" />
+
+    <MediaController
+        android:id="@+id/mediaController1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_marginLeft="104dp"
+        android:layout_toRightOf="@+id/textView1" >
+    </MediaController>
 
 </RelativeLayout>
